@@ -51,7 +51,7 @@
                 </section>
                 <section>
                     <h2>Disclaimer, part the first:</h2>
-                    <h3>Learn from other industries,<br>do not take on their stresses.</h3>
+                    <h3>Learn from other industries,<br />do not take on their stresses.</h3>
                     <aside class = "notes">
                         <ul>
                             <li>I’ll be showing a bunch of stuff here. Some of it comes from ATC, some comes from first responders - these are folks who deal with literal life-or-death situations.</li> 
@@ -64,12 +64,12 @@
                 </section>
                 <section>
                     <h2>Disclaimer, part the second:</h2>
-                    <h3>This is a topic with a surprisingly<br>large number of details.</h3>
+                    <h3>This is a topic with a surprisingly<br />large number of details.</h3>
                     <aside class = "notes">
                             Second disclaimer - this is a surprisingly large topic. It might seem as simple as “we all just get on a bridge and work the problem and the site is back up”…but it’s a complex system. 
-                            <br><br>
+                            <br /><br />
                             For example, there is the business impact, business continuity, etc, through to organizational factors (which team owns what?), getting down as precise as individual psychology, and how different individuals deal with stressful situations.
-                            <br><br>
+                            <br /><br />
                             This is a short talk that only begins to touch upon the larger system.
                     </aside>
                 </section>
@@ -92,11 +92,11 @@
                     <h2>Have criteria defined for when to have and not have a call.</h2>
                     <aside class = "notes">
                         The most important thing to do before is have criteria of what causes an incident?
-                        <br><br>
+                        <br /><br />
                         This might seem obvious, but you want to be careful to not be ad-hoc and just declare an incident any time a system is impacted.
-                        <br><br>
+                        <br /><br />
                         This should all be driven by business-related criteria. For example, it could be that order volume is 20% lower than it should be for this time of day, etc. 
-                        <br><br>
+                        <br /><br />
                         System-level alerts (CPU usage, disk space, etc) are not the criteria to determine if something requires a call. They may be indicators that trigger the need to make a decision, but they are not the criteria for determining if you should have one. 
                     </aside>
                 </section>
@@ -110,9 +110,9 @@
                     </div>      
                     <aside class = "notes">
                         You do this beforehand because you don’t want to be litigating it during the call. The call is the time to solve the problem. It’s not the time to argue about how important the problem is. During an incident it can be difficult to make complex business impact decisions. We need to have these figured out when we have the luxury of time to think them through and have the proper discussions with stakeholders. 
-                        <br><br>
+                        <br /><br />
                         This also helps make it clear to everyone involved in the process WHY this is important to our business for us to be doing this very stressful thing that none of us want to do right now. 
-                        <br><br>
+                        <br /><br />
                         Post it widely, because stakeholders and others who are not directly involved with the incident will still want to be able to discover and understand what the response is…who is involved, who is doing what, what the expectations are, etc
                     </aside>              
                 </section>
@@ -120,14 +120,118 @@
                     <h2>Monitor the business criteria, and act accordingly.</h2>
                     <aside class = "notes">
                         You may have monitoring like nagios that is focused on cpu, memory, disk, etc, but you also want to have some type of system that looks a little higher - maybe something like datadog, or an APM solution, which will help you see “hey, your business is about to have a problem, or your users are experiencing a degradation in service”
-                        <br><br>
+                        <br /><br />
                         Ideally, this business or service level monitoring should work automatically to engage and start the process of incident.
-                        <br><br>
+                        <br /><br />
                         You also need to watch your watchers. For example, at Pagerduty, we want to make sure we are delivering notifications within a certain amount of time. So we have a system that is constantly checking “how long is it taking, etc”. If that system is unable to determine this, that itself is criteria to start an incident - because it means we are flying blind, and we MIGHT be having a business impact, but we cannot be sure. 
                     </aside>
                 </section>
                 <section>
-                        <audio data-autoplay class="fragment" src="audio/apollo13_1-1093.m4a"></audio>
+                    <h2>People are expensive.</h2>
+                    <aside class = "notes">
+                        Speaking of humans…they’re expensive. <br />
+                        In a large organization, a bridge with 100 people sitting there mostly idle for several hours is not unheard of. That’s REALLY expensive to the organization. If each of those people cost ~$100/hour, that’s $10K every hour! Even outside of the dollar impact, there is a cost to productivity - if you have 100+ people spending hours at 2 am, they aren’t going to be getting a lot of high value work done the next day.
+                        <br /><br />
+                        So when you’re deciding who is (and isn’t) going to be a part of the incident process (humans), realize this is something that is expensive to your business - and design it accordingly. 
+                    </aside>
+                </section>
+                <section>
+                    <h2>Practice still makes perfect.</h2>
+                    <aside class = "notes">
+                        Practice.<br />
+                        As you move from the ad-hoc to the more repeatable approach, you want to practice all the steps and parts that we will talk about as the “during” section. <br />
+                        Practice it while it’s not stressful. <br />
+                        Practice it when you have total control over the situation. <br />
+                        Some orgs do failure injection, or if you want to be fancy, “chaos engineering” - that’s a good time to practice incident response. Game days, whatever you want to call them. At PD, when we do “Failure Friday”, we handle it like an incident, with the same process and ceremony that we would use in the real thing. 
+                        <br /><br />
+                        This is a safe way to try it out, since you know what the actual problem is…it gives the ability to have a bit more focus on the process and find out what works well and what doesn’t. And repeated practice creates organizational muscle memory towards this for when it’s needed at 3 am.
+                    </aside>
+                </section>
+                <section>
+                    <h2>“Know your role”</h2>
+                    <aside class = "notes">
+                        Before something happens, know the roles. Often times this happens ad hoc…but if you have to decide it during the incident, it’s taking away energy and time from solving the problem.
+                    </aside>
+                </section>
+                <section>
+                    <img src = "img/roles.png">
+                    <aside class = "notes">
+                        This is a very basic role structure. It’s loosely based on some first responder practices.  <br />
+                        The incident commander is not sitting there solving the problem. They are sitting there managing the incident. They are turning the gears to get us from “things are broken” to “things are not broken anymore”. They are a type of task dispatcher, as information is observed and shared, the IC can direct others towards the next steps with that information.  <br />
+                        The deputy exists a) for redundancy, and b) because during the incident, the IC is very busy directing and managing the incident (issuing tasks and setting timers, “you’re going to go check the logs on the web server, and in five minutes I’m going to check back with you to find out where you’re at”). The deputy can help with the logistics of keeping track of the open items, what the next item is, and also be the scribe to keep a record of what is happening.  <br />
+                        The subject matter experts is the fancy term for the people actually doing the work. Depending upon your organization, this may be aligned by teams (the DBA on call, the network on call, etc) or it might be aligned by services (the order service on call, the load balancer service on call, etc) <br />
+                        A SME is the person most responsible for a given area who ALSO has the ability to most directly affect it. This person can observe what is wrong, but can also do something about it. 
+                    </aside>
+                </section>
+                <section>
+                    <h2>Have a clear understanding <br />of who is supposed to be <br /> involved in each role.</h2>
+                    <aside class = "notes">
+                        Hmm. I hear there is a company that makes a thing to help with this. <br />
+                        This shows who IS involved and who ISN’T. This helps absolve stress. If I know that this week I am not directly on the hook, then I can breathe easier.
+                    </aside>
+                </section>
+                <section>
+                    <h2>During</h2>
+                    <aside class = "notes">
+                        One of the first things that happens is elect a leader. If you’ve used systems like raft, paxos, etcd, zookeeper, etc…this will sound familiar.<br /> 
+                        The process for electing an IC works like this - as someone who might be an incident commander:<br />
+                        “Hi, this is Matt. Is there an IC on the call” (wait) “OK, hearing there isn’t an IC on the call, this is Matt, I’m the incident commander. Who’s on the call?”<br />
+                        Basically, it’s self-election. If you don’t hear anybody taking ownership of the call, congrats - you just took ownership. 
+                    </aside>
+                </section>
+                <section>
+                    <h2>The IC becomes the highest authority.</h2>
+                    <p class = "fragment">
+                        Yes, even higher than the CEO
+                    </p>
+                    <aside class = "notes">
+                        No matter their day-to-day role, and IC is always becomes the highest ranking person on the call. If the CEO joins, the IC still out-ranks them in an incident response situation. <b>This is critical for successful incident response, and it does require buy-in from your executives. Please don’t surprise them with this, it will not go well for you.</b>
+                    </aside>
+                </section>
+                <section>
+                    <h2>The IC manages the<br />flow of conversation.</h2>
+                    <aside class = "notes">
+                        This goes both ways. Stakeholders or SME’s are going to say “I just heard from a customer that we are having an issue, what’s going on?” The IC says “okay, I have a report that says this is going on, I’m going to get a resource from the app team to see if we’ve done any pushes lately” the IC goes through and engages the resource if they aren’t already there, and the IC tells them “here’s the problem. I’m going to give you five minutes - please come back to me with what’s going on. I’ll check with you in five minutes if I haven’t heard from you” <br /> <br />
+                        The IC is not the one solving the problem, but the IC is setting up the context for everybody else to work together, without everyone having to worry about who is doing what, and how to get the information they need. 
+                    </aside>
+                </section>
+                <section>
+                    <h2>“Can someone…”</h2>
+                    <aside class = "notes">
+                        At the start, I asked if someone could keep track of the time. Did anyone actually do that? Probably not. Because of the bystander effect. Everyone assumed someone else was doing it.
+                        <br /> <br />
+                        Never use this phrase, you’ll hit the bystander effect. No one will actually do what you want. If someone by chance does, you won’t know who it is, or if they’ve even started.
+                        <br /> <br />
+                        A better approach would be, (Point to someone in front row), “You, please keep track of the time and give me a little wave when we get to 30 minutes, starting now. Understood?”. See how different that was. What about in an incident situation?
+                    </aside>
+                </section>
+                <section>
+                    <img src = "img/eric-rich.png">
+                </section>
+                <aside class = "notes">
+                    What’s different here? It’s a little more verbose than “Can someone”, but several important things happened in this exchange.
+                    <ol>
+                        <li>The task was assigned directly to a specific person. It’s ok to assign it to a role too “DBA on-call…”, etc. But it must be a single individual.</li>
+                        <li>The task was given a time-limit. The SME knows exactly how long until I come back to them for an answer, so they won’t be surprised or caught off guard.</li>
+                        <li>The IC confirmed that they had understood the instructions and are going to carry them out. So I don’t come back in 5 minutes and find they never started, etc.</li>
+                    </ol>
+                </aside>
+                <section>
+                    <h2>Humor is best in context.</h2>
+                    <aside class = "notes">
+                        Humor can be really helpful.<br /> 
+                        Sometimes on an incident the team can start chasing their tail, or going down ratholes, or not being very helpful to one another. As an IC, you can use humor to move the person doing something not so great out of the flow of conversation. <br />
+                        This is an example clip from a JFK ATC. ATC is constantly dispatching people from point a to point b so they don’t collide with one another
+                    </aside>
+                </section>
+                <section>
+                    <audio data-autoplay class="fragment" src="audio/atc-896.ogg"></audio>
+                    <p align = "left">DT5: Roger that</p>
+                    <p class = "fragment" align = "left">GND: Delta Tug 5, you can go right on bravo</p>
+                    <p class = "fragment" align = "left">DT5: Right on bravo, taxi.</p>
+                    <p class = "fragment" align = "left">(…): Testing, testing. 1-2-3-4.</p>
+                    <p class = "fragment" align = "left">GND: Well, you can count to 4.  It’s a step in the right direction.  Find another frequency to test on now.</p>
+                    <p class = "fragment" align = "left">(…): Sorry</p>
                 </section>
                 <section></section>
 			</div>
