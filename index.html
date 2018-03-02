@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Incidents &amp; Accidents</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/pagerduty.css">
@@ -25,14 +25,105 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-                   <h1>Incidents & Accidents</h1>
-                    <h4>Matt Stratton, DevOps Evangelist, <span class = "brand">PagerDuty</span></h4>
+                   <h2 align = "left">Incidents &amp; Accidents</h2>
+                    <h4 align = "left">Matt Stratton</h4>
+                    <h4 align = "left">DevOps Evangelist, <span class = "brand">PagerDuty</span></h4>
                 </section>
                 <section data-background="img/kids.png">
                     <p class = "block-text">Gratuitous slide of kids to get you on my side</p>
 
 					<aside class="notes">
                         I used to talk about what I do and who I am, but nobody really cares. 
+                    </aside>
+                </section>
+                <section data-background="img/stressed-cat.jpg">
+                    <aside class="notes">
+                        <ul>
+                            <li>Who here has been on one of those phone calls where you are trying to troubleshoot an issue when something’s going wrong, and you’re trying to problem-solve with fellow human beings?</li>
+
+                            <li>Who here really enjoyed that experience and wants to do it all the time?</li>
+
+                            <li>Incident calls can be really tough, but there are ways to make them less stressful.</li>
+
+                            <li>A lot of organizations just make it up as they go along, but there are things we can borrow from first responders, and other best of breed disciplines to help make this better.</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section>
+                    <h2>Disclaimer, part the first:</h2>
+                    <h3>Learn from other industries,<br>do not take on their stresses.</h3>
+                    <aside class = "notes">
+                        <ul>
+                            <li>I’ll be showing a bunch of stuff here. Some of it comes from ATC, some comes from first responders - these are folks who deal with literal life-or-death situations.</li> 
+
+                            <li>Inherit the interesting things we can learn from them, but don’t take on their stress. There’s no reason that a sysadmin needs to have the stress level of an air traffic controller. </li>
+                            
+                            <li>Hopefully most of you don’t have the situation where a down system causes someone to die. For those of you who do…that’s an awesome responsibility and I have nothing but respect for you carrying that mantle. </li>
+                        </ul>
+                    </aside>
+                </section>
+                <section>
+                    <h2>Disclaimer, part the second:</h2>
+                    <h3>This is a topic with a surprisingly<br>large number of details.</h3>
+                    <aside class = "notes">
+                            Second disclaimer - this is a surprisingly large topic. It might seem as simple as “we all just get on a bridge and work the problem and the site is back up”…but it’s a complex system. 
+                            <br><br>
+                            For example, there is the business impact, business continuity, etc, through to organizational factors (which team owns what?), getting down as precise as individual psychology, and how different individuals deal with stressful situations.
+                            <br><br>
+                            This is a short talk that only begins to touch upon the larger system.
+                    </aside>
+                </section>
+                <section>
+                    <h2>Before, during, after</h2>
+                    <aside class="notes">
+                        This will be broken up in to three sections
+                        <ol>
+                            <li>Things you should do before you ever get into an incident call</li>
+                            <li>Things you should do DURING an incident</li>
+                            <li>Finally, things you should do after.</li>
+                        </ol>
+                        There are different things to perform and consider at each of these phases, and all three of them are equally essential. 
+                    </aside>
+                </section>
+                <section>
+                    <h2>Before</h2>
+                </section>
+                <section>
+                    <h2>Have criteria defined for when to have and not have a call.</h2>
+                    <aside class = "notes">
+                        The most important thing to do before is have criteria of what causes an incident?
+                        <br><br>
+                        This might seem obvious, but you want to be careful to not be ad-hoc and just declare an incident any time a system is impacted.
+                        <br><br>
+                        This should all be driven by business-related criteria. For example, it could be that order volume is 20% lower than it should be for this time of day, etc. 
+                        <br><br>
+                        System-level alerts (CPU usage, disk space, etc) are not the criteria to determine if something requires a call. They may be indicators that trigger the need to make a decision, but they are not the criteria for determining if you should have one. 
+                    </aside>
+                </section>
+                <section>
+                    <div>
+                        <img src = "img/severity.png" class = "right">
+                    </div>
+                    <div class = "header-center">
+                        <h4 align = "left">Post incident criteria widely.</h4>
+                        <h4 align = "left">Don’t litigate during a call.</h4>
+                    </div>      
+                    <aside class = "notes">
+                        You do this beforehand because you don’t want to be litigating it during the call. The call is the time to solve the problem. It’s not the time to argue about how important the problem is. During an incident it can be difficult to make complex business impact decisions. We need to have these figured out when we have the luxury of time to think them through and have the proper discussions with stakeholders. 
+                        <br><br>
+                        This also helps make it clear to everyone involved in the process WHY this is important to our business for us to be doing this very stressful thing that none of us want to do right now. 
+                        <br><br>
+                        Post it widely, because stakeholders and others who are not directly involved with the incident will still want to be able to discover and understand what the response is…who is involved, who is doing what, what the expectations are, etc
+                    </aside>              
+                </section>
+                <section>
+                    <h2>Monitor the business criteria, and act accordingly.</h2>
+                    <aside class = "notes">
+                        You may have monitoring like nagios that is focused on cpu, memory, disk, etc, but you also want to have some type of system that looks a little higher - maybe something like datadog, or an APM solution, which will help you see “hey, your business is about to have a problem, or your users are experiencing a degradation in service”
+                        <br><br>
+                        Ideally, this business or service level monitoring should work automatically to engage and start the process of incident.
+                        <br><br>
+                        You also need to watch your watchers. For example, at Pagerduty, we want to make sure we are delivering notifications within a certain amount of time. So we have a system that is constantly checking “how long is it taking, etc”. If that system is unable to determine this, that itself is criteria to start an incident - because it means we are flying blind, and we MIGHT be having a business impact, but we cannot be sure. 
                     </aside>
                 </section>
                 <section>
@@ -58,30 +149,6 @@
 				]
 			});
         </script>
-        <style type="text/css">
-            /* 1. Style header/footer <div> so they are positioned as desired. */
-            #header-left {
-                position: absolute;
-                top: 0%;
-                left: 0%;
-            }
-            #header-right {
-                position: absolute;
-                top: 0%;
-                right: 0%;
-            }
-            #footer-left {
-                position: absolute;
-                bottom: 0%;
-                left: 0%;
-            }
-            #footer-right {
-                position: absolute;
-                bottom: 0%;
-                right: 0%;
-            }
-        </style>
-        
         <!-- 2. Create hidden header/footer <div> -->
         <div id="hidden" style="display:none;">
             <div id="header">
